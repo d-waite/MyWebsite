@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  color: #30c5ffff;
+  background: #02111bff;
+  font-family: 'Open Sans';
+}
+
+h1 {
+  font-weight: bold;
+}
+
+a {
+  text-decoration: underline;
+}
+
+input {
+  color: black;
+}
+
+textarea {
+  color: black;
+}
