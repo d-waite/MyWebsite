@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 type FormData = {
@@ -13,9 +13,11 @@ type FormData = {
 const InquiryForm = () => {
 
   const { reset, handleSubmit, register } = useForm<FormData>();
+  const [success, setSuccess] = useState(false);
 
   const onSubmit = (data: FormData) => {
     reset();
+    setSuccess(true);
   }
 
   const required = <span className="text-red-300">*</span>;
@@ -24,6 +26,9 @@ const InquiryForm = () => {
     <>
       <div>
         <h1 className="text-4xl">Contact Me!</h1>
+      </div>
+      <div className="flex justify-center">
+        {success && <p>Inquiry successfully submitted!</p>}
       </div>
       <form id="contactMe" className="flex justify-center" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-wrap pt-3 items-center">
