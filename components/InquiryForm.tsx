@@ -29,10 +29,10 @@ const InquiryForm = () => {
           </div>
           <div className="flex flex-col gap-1 w-full lg:w-1/2 p-2">
             <label className="text-lg" htmlFor="phone">Phone:</label>
-            <input className="w-full p-2 rounded text-gray-100 bg-slate-800 border border-lightBlue" type="phone" id="email" />
+            <input className="w-full p-2 rounded text-gray-100 bg-slate-800 border border-lightBlue" type="phone" id="phone" />
           </div>
           <div className="flex flex-col gap-1 w-full p-2">
-            <label className="text-lg" htmlFor="inquiry">Inquiry: {required}</label>
+            <label className="text-lg" htmlFor="message">Inquiry: {required}</label>
             <textarea className="w-full p-2 rounded text-gray-100 bg-slate-800 border border-lightBlue" rows={4} id="message" required />
           </div>
           <div className="flex justify-center p-2 w-full">
