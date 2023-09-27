@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import * as React from 'react';
 import { useForm } from 'react-hook-form';
+import * as Toast from '@radix-ui/react-toast';
 
 type FormData = {
   firstName: string;
@@ -9,26 +10,43 @@ type FormData = {
   inquiry: string;
 }
 
+async function submitForm(data: FormData) {
+  // POST form data
+  await fetch('/api/contact', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+}
 
 const InquiryForm = () => {
+  const [toastOpen, setToastOpen] = React.useState(false);
+  const { handleSubmit, reset, register } = useForm<FormData>();
 
-  const { reset, handleSubmit, register } = useForm<FormData>();
-  const [success, setSuccess] = useState(false);
-
-  const onSubmit = (data: FormData) => {
-    reset();
-    setSuccess(true);
+  const onSubmit = async (data: FormData) => {
+    try {
+      await submitForm(data);
+      setToastOpen(true);
+      reset();
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   const required = <span className="text-red-300">*</span>;
 
   return (
-    <>
+    <Toast.Provider>
+
+      <Toast.Viewport className="fixed bottom-0 right-0 flex flex-col p-3 gap-1 w-80 max-w-full m-0 z-50" />
+
+      <Toast.Root className="rounded py-3 px-4 bg-green-400 text-slate-900 shadow-lg transition-all opacity-0 duration-300 ease-in-out data-[state=open]:opacity-100" open={toastOpen} onOpenChange={setToastOpen}>
+        <Toast.Description className="text-lg font-bold">
+          Your submission has been received!
+        </Toast.Description>
+      </Toast.Root>
+
       <div>
         <h1 className="text-4xl">Contact Me!</h1>
-      </div>
-      <div className="flex justify-center">
-        {success && <p>Inquiry successfully submitted!</p>}
       </div>
       <form id="contactMe" className="flex justify-center" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-wrap pt-3 items-center">
@@ -57,7 +75,7 @@ const InquiryForm = () => {
           </div>
         </div>
       </form >
-    </>
+    </Toast.Provider >
   )
 }
 

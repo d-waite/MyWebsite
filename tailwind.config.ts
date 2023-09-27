@@ -8,6 +8,20 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      keyframes: {
+        hide: {
+          from: { opacity: '1' },
+          to: { opacity: '0' },
+        },
+        slideIn: {
+          from: {
+            transform: 'translateX(calc(100% + var(--viewport-padding)))',
+          },
+          to: {
+            transform: 'translateX(0)',
+          }
+        }
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
