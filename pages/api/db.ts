@@ -4,7 +4,7 @@ import * as schema from '../../schema';
 export { user } from '../../schema';
 import postgres from 'postgres';
 
-const connectionString = process.env.POSTGRES_URL;
+const connectionString = `${process.env.POSTGRES_URL}?sslmode=require`;
 if (!connectionString) {
     throw new Error('POSTGRES_URL environment variable must be set');
 }
