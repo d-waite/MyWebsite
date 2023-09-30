@@ -1,15 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import nodemailer from 'nodemailer';
-
-const email = process.env.EMAIL_ADDRESS;
-
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: email,
-        pass: process.env.EMAIL_PASSWORD,
-    }
-});
+import { db, user as userTable } from "./db"
 
 type Body = {
     firstName: string;
@@ -28,13 +18,7 @@ export default async function handler(
     res: NextApiResponse<Data>
 ) {
     try {
-        await transporter.sendMail({
-            from: email,
-            to: email,
-            subject: 'Inquiry Submitted on Your Website!',
-            // spaces two
-            text: JSON.stringify(req.body),
-        });
+        await db.insert(userTable).values(JSON.parse(req.body));
         return res.status(200).json({ success: true });
     } catch (e) {
         console.error('Error submitting response', e);
